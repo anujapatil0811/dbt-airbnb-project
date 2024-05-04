@@ -1,0 +1,17 @@
+version: 2
+
+exposures:
+  - name: Executive_Dashboard
+    label: Executive Dashboard
+    type: dashboard
+    maturity: low
+    url: https://6a736adc.us1a.app.preset.io/superset/dashboard/8/?native_filters_key=9pT2pDU-9U63s2pFTrls-Vobuybe66BDeoSjoq-9Clc4BNQImY8w4DUvAYzu6Fee
+    description: Executive dashboard about Aisbnb listings and hosts
+
+    depends_on:
+      - ref('dim_listings_w_hosts')
+      - ref('mart_fullmoon_review')
+
+    owner:
+      name: Anuja Patil
+      email: anu08112000@gmail.com

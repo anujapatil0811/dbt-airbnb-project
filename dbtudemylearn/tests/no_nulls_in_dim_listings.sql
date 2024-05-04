@@ -1,1 +1,1 @@
-{{no_nulls_in_columns(ref('dim_listing_cleansed'))}}
+{{dbtNullCheck.no_nulls_in_columns(ref('dim_listing_cleansed'))}}

@@ -22,10 +22,20 @@ asset-paths: ["assets"]
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
+# packages-install-path: ../packages
 
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# on-run-start: ""
+# on-run-end:
+
+
+on-run-start:
+  - "{{ simple_macro() }}"
+# on-run-start:                                    #run successfully 
+#   - "{{ no_nulls_in_columns(model='dim_listing_cleansed') }}"
 
 # In this example config, we tell dbt to build all models in the example/
 # directory as views. These settings can be overridden in the individual model
@@ -33,7 +43,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dbtudemylearn:
       +materialized: view
+      
+      # +post-hook:
+      #   - "GRANT SELECT ON {{ this }} TO ROLE REPORTER"
+      pre-hook: "{{ simple_macro() }}" 
+      # pre-hook: "{{ no_nulls_in_columns(model='dim_listing_cleansed') }}"
       src:
         +materialized: ephemeral
+vars:
+  user_name: default_user_name_for_this_project
+
+
+
+
+
+
 
 
