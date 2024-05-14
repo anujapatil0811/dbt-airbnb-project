@@ -213,9 +213,7 @@ FROM
 ```
 
 
-## Exercise
-
-Create a model which builds on top of our `raw_hosts` table. 
+## model which builds on top of our `raw_hosts` table. 
 
 1) Call the model `models/src/src_hosts.sql`
 2) Use a CTE (common table expression) to define an alias called `raw_hosts`. This CTE select every column from the raw hosts table `AIRBNB.RAW.RAW_HOSTS`
@@ -223,7 +221,7 @@ Create a model which builds on top of our `raw_hosts` table.
    * `id` to `host_id`
    * `name` to `host_name` 
 
-### Solution
+### model code
 
 ```sql
 WITH raw_hosts AS (
@@ -306,9 +304,7 @@ FROM
     src_hosts
 ```
 
-## Exercise
-
-Create a new model in the `models/dim/` folder called `dim_hosts_cleansed.sql`.
+## Create a new model in the `models/dim/` folder called `dim_hosts_cleansed.sql`.
  * Use a CTE to reference the `src_hosts` model
  * SELECT every column and every record, and add a cleansing step to host_name:
    * If host_name is not null, keep the original value 
@@ -317,7 +313,7 @@ Create a new model in the `models/dim/` folder called `dim_hosts_cleansed.sql`.
 Execute `dbt run` and verify that your model has been created 
 
 
-### Solution
+### model code
 
 ```sql
 WITH src_hosts AS (
@@ -576,12 +572,12 @@ LIMIT 10
 dbt test --select dim_listings_cleansed
 ```
 
-## Exercise
+## Singular test
 
 Create a singular test in `tests/consistent_created_at.sql` that checks that there is no review date that is submitted before its listing was created: Make sure that every `review_date` in `fct_reviews` is more recent than the associated `created_at` in `dim_listings_cleansed`.
 
 
-### Solution
+### test code
 ```sql
 SELECT * FROM {{ ref('dim_listings_cleansed') }} l
 INNER JOIN {{ ref('fct_reviews') }} r
